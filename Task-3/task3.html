@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>JQuery Assignment</title>
+</head>
+
+<body>
+    
+	<div class="main">
+        <button id="loader" onclick="loadData()">Load Data</button>  
+    </div>
+
+    <script type="text/javascript">
+        
+        loadData = () =>{
+            $('document').ready(() =>{
+			
+                $.get("https://jsonplaceholder.typicode.com/posts", (res,status) => {
+                    let count = 0;
+					$('#loader').remove();
+                    displayResult(res, count);
+                });
+            })
+        }
+    
+		displayResult = (res, count) => {
+            setTimeout(() => { 
+                $(".main").append(`<div class="comments">
+                    <h4 id="title">${res[count].title}</h4>
+                    <p id = "body">${res[count].body}</p>
+                </div>`);
+                count++;
+                displayResult(res, count);
+            }, 1000);
+        }
+		
+    </script>
+	
+</body>
+</html>
